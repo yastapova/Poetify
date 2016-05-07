@@ -123,20 +123,25 @@ def parse(c_in, c_out):
     c_in = read_file(c_in)
     c_in = c_in.strip().split('\n')
     c_out = open(c_out, 'w')
+    count = 1
     for s in c_in:
-        print('Parsing:\t' + s)
+        print('Parsing:\t' + str(count) + ' of ' + str(len(c_in)))
         s = s[6:len(s)-1]   # get rid of ROOT tag
         # add TOP tag to comply with previous code
         res = 'TOP(' + parse_sentence(s) + ')'
-        print(res)
+        #print(res)
         c_out.write(res + '\n')
-        print()
+        #print()
+        count += 1
     c_out.close()
   
+'''
 # sample parameters for testing
 c = []
 c.append('ex.txt')
 c.append('exresult.txt')
-
+'''
+sys.setrecursionlimit(1500)
+    
 if(c != None):
     parse(c[0], c[1])
