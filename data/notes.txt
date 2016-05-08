@@ -1,0 +1,7 @@
+Notes:
+
+train.trees
+- First 400 from Amateur, next 700 from Poet
+
+test.trees:
+- First 162 from Amateur, next 260 from Poet
