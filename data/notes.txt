@@ -5,3 +5,15 @@ train.trees
 
 test.trees:
 - First 162 from Amateur, next 260 from Poet
+
+To Do:
+- binarize trees
+- train pcfg
+- create the classifier
+	- input
+	- run pcfg to create parse tree
+	- extract rules from parsed input
+	- determine poetic "score"
+	- swap phrases at random points
+	- determine poetic score
+	- max score wins?
