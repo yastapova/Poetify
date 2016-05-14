@@ -3,7 +3,10 @@ Created on Apr 11, 2016
 
 @author: Yuliya
 '''
-from hw import tree
+import sys
+sys.path.append('..')
+
+from pcfg import tree
 
 # uses the from_str() function in tree.py
 # to read a tree from its string representation

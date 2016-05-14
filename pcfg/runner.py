@@ -6,7 +6,7 @@ Created on Apr 10, 2016
 
 import argparse, sys
 sys.path.append('..')
-from hw import trainpcfg, parsepcfg
+from pcfg import trainpcfg, parsepcfg
 
 
 parser = argparse.ArgumentParser(description='Includes the training application ' +
