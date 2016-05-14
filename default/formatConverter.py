@@ -155,3 +155,41 @@ sys.setrecursionlimit(1500)
     
 if(c != None):
     parse(c[0], c[1])
+    
+    
+def one_line(text):
+    end = len(text)
+    line = 0
+    while(line < end and line > -1):
+        print("percent done: " + str(line/end * 100), flush=True)
+        s = text[line].strip()
+        if(len(s) == 0):
+            text.pop(line)
+            continue
+        last = s[len(s)-1:len(s)]
+        if(last != '.' and last != '?' and last != '!'):
+            s = s.rstrip() + ' '
+            if(line != len(text)-1):
+                s = s + text[line+1]
+                text.pop(line+1)
+                end = len(text)
+                text[line] = s
+                line -= 1
+            else:
+                text[line] = s
+            
+        line += 1
+    return(text)
+
+#text = "You throw away everything that she made\nyou never did this before\n\nhow could you make someone lay where she laid?\nshe gave you her all, why didn't you just love her more?\n\nshe thought what you guys had was sweet\nbut you had to walk out and left her incomplete.\n"
+#print(text.split('\n'))
+#print(one_line(text.strip().split('\n')))
+
+def convert_nlines(fname):
+    text = read_file(fname)
+    text = text.strip().split('\n')
+    text = one_line(text)
+    f = open("test.txt", 'w')
+    f.write('\n'.join(text))
+    f.close()
+    
