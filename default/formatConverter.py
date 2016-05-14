@@ -8,7 +8,9 @@ usable with my older code.
 '''
 
 import argparse, sys
+
 sys.path.append('..')
+from pcfg import tree as ptree
 
 parser = argparse.ArgumentParser(description='Converts format of parse tree from Stanford Parser.')
 parser.add_argument('-c', nargs=2, metavar=('input_file', 'output_file'), type=str,
@@ -128,19 +130,27 @@ def parse(c_in, c_out):
         print('Parsing:\t' + str(count) + ' of ' + str(len(c_in)))
         s = s[6:len(s)-1]   # get rid of ROOT tag
         # add TOP tag to comply with previous code
-        res = 'TOP(' + parse_sentence(s) + ')'
+        res = parse_sentence(s)
+        res = do_binarize(res)
+        res = 'TOP(' + res.__str__() + ')'
         #print(res)
         c_out.write(res + '\n')
         #print()
         count += 1
     c_out.close()
-  
+    
+def do_binarize(s):
+    t = ptree.Tree.from_str(s)
+    t.binarize()
+    return(t)
+
 '''
 # sample parameters for testing
 c = []
 c.append('ex.txt')
 c.append('exresult.txt')
 '''
+
 sys.setrecursionlimit(1500)
     
 if(c != None):

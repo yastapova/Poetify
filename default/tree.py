@@ -27,7 +27,7 @@ class Node(object):
         if len(self.children) != 0:
             return "%s(%s)" % (self.label, " ".join(child._subtree_str() for child in self.children))
         else:
-            s = '"%s"' % self.label
+            s = '%s' % self.label
             #s = s.replace("(", "-LRB-")
             #s = s.replace(")", "-RRB-")
             return s
