@@ -45,7 +45,10 @@ def count_rules(root, rules, unique_lhs, unique_tags, words):
         else:
             unique_lhs[rootname] = 1
         if not child0.isupper():
-            words[child0] = 1
+            if child0 in words:
+                words[child0] += 1
+            else:
+                words[child0] = 1
         else:
             unique_tags[child0] = 1
         count_rules(children[0], rules, unique_lhs, unique_tags, words)
@@ -63,18 +66,51 @@ def count_rules(root, rules, unique_lhs, unique_tags, words):
             unique_lhs[rootname] = 1
         #childs = child0 + ' ' + child1
         if not child0.isupper():
-            words[child0] = 1
+            if child0 in words:
+                words[child0] += 1
+            else:
+                words[child0] = 1
         else:
             unique_tags[child0] = 1
         if not child1.isupper():
-            words[child1] = 1
+            if child1 in words:
+                words[child1] += 1
+            else:
+                words[child1] = 1
         else:
             unique_tags[child1] = 1
         count_rules(children[0], rules, unique_lhs, unique_tags, words)
         count_rules(children[1], rules, unique_lhs, unique_tags, words)
     else:
         raise Exception('too many children')    # should never happen
-    
+
+def weed_unks(rules, words):
+    words['<unk>'] = 0
+    unks = []
+    delete = {}
+    add = {}
+    for w in words:
+        if words[w] == 1:
+            words['<unk>'] += 1
+            unks.append(w)
+            delete[w] = 1
+    for d in delete:
+        del words[d]
+    delete = {}
+    for r in rules:
+        if len(r) == 2:
+            if r[1] in unks:
+                tag = r[0]
+                if (tag, '<unk>') not in add:
+                    add[(tag, '<unk>')] = 1
+                else:
+                    add[(tag, '<unk>')] += 1
+                delete[r] = 1
+    for d in delete:
+        del rules[d]
+    for a in add:
+        rules[a] = add[a]
+
 # counts the rules used by each tree in the list
 def count_all_rules(tree_list):
     rules = {}  # dictionary for rules
@@ -153,6 +189,7 @@ def show_max_10_binary(probs):
 def train(input_file):
     tree_list = read_trees(input_file)
     rules, u_lhs, u_tags, words = count_all_rules(tree_list)
+    weed_unks(rules, words)
     probs = calc_probs(rules, u_lhs, u_tags, words)
     write_PCFG_file(u_lhs, u_tags, rules, probs, words)
     show_max_10_binary(probs)

@@ -53,10 +53,20 @@ def get_Laplace_prob(rule, grammar, u_lhs, ntags, nwords):
     if rule in grammar:
         return grammar[rule]
     else:
-        denom = nwords + ntags**2
-        if rule[0] in u_lhs:
-            denom += u_lhs[rule[0]]
-        return 1/denom
+        if len(rule) == 2:
+            rule = (rule[0], '<unk>')
+            if rule in grammar:
+                return grammar[rule]
+            else:
+                denom = nwords + ntags**2
+                if rule[0] in u_lhs:
+                    denom += u_lhs[rule[0]]
+                return 1/denom
+        else:
+            denom = nwords + ntags**2
+            if rule[0] in u_lhs:
+                denom += u_lhs[rule[0]]
+            return 1/denom
 
 # recursively builds the tree from two chosen child rules
 def buildTreeRecursive(all_rules, word, tag, row, tags, backs, scores, sent):
@@ -91,7 +101,10 @@ def buildTree(all_rules, scores, backs, tags, sent):
     last = len(backs)
     last = scores[0][last-1]
     top = tags.index('TOP')
-    bp = backs[0][len(backs)-1][top]
+    bp = backs[0][len(backs)-1]
+    print(bp)
+    bp = max(x for x in bp if x is not None)
+    print(bp)
     
     if not all_rules:
         if bp == None:
