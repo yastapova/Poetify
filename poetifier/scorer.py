@@ -4,9 +4,9 @@ Created on May 14, 2016
 @author: Yuliya
 '''
 import sys
+from math import log,exp
 sys.path.append('..')
 from pcfg import parsepcfg, trainpcfg, runner, tree
-from math import log,exp
 
 # input a single sentence
 
@@ -41,15 +41,12 @@ def calc_score(rules, probs, p_rules, u_lhs, ntags, nwords):
 
 pcfg_file_path = '../pcfg/pcfg.txt'
 all_rules = False
-sentence = 'her eyes were red and puffy from many tears .'
-sentence2 = 'One of the things I like most in life is food .'
-sentence3 = 'A lifetime filled with cheating hearts ,'
 
 def run_switcher(s):
     print('Reading pcfg file.', flush=True)
     u_lhs, tags, rules, probs, ntags, nwords = parsepcfg.parse_grammar(pcfg_file_path)
     print('Creating parse tree for input.', flush=True)
-    parsepcfg.create_trees(all_rules, s, u_lhs, tags, rules, probs, ntags, nwords)
+    #parsepcfg.create_trees(all_rules, s, u_lhs, tags, rules, probs, ntags, nwords)
     print('Created parse.trees file.', flush=True)
     parse = runner.read_file('parse.trees')
     parse = parse.strip().split('\n')
@@ -58,5 +55,7 @@ def run_switcher(s):
     rules_p, u_lhs_p, u_tags_p, words_p = trainpcfg.count_all_rules(ptree)
     ascore, mscore = calc_score(rules, probs, rules_p, u_lhs, ntags, nwords)
     print('scores:\t' + str(ascore/len(rules_p)) + '\t' + str(mscore/len(rules_p)))
+    from poetifier import sentence_classifier
+    sentence_classifier.classify_input(s, [ascore, mscore])
     
-#run_switcher(sentence)
+#run_switcher(sentence3)

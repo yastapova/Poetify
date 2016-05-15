@@ -126,8 +126,8 @@ def count_all_rules(tree_list):
             countu += 1
         else:
             countb += 1
-    print('Unary rules:\t' + str(countu))
-    print('Binary rules:\t' + str(countb))
+    #print('Unary rules:\t' + str(countu))
+    #Sprint('Binary rules:\t' + str(countb))
     return(rules, u_lhs, u_tags, words)
 
 # runs through each rule in the rules dictionary,
