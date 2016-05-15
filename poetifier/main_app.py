@@ -28,6 +28,14 @@ from pcfg import parsepcfg, trainpcfg, runner, tree
     
 # max score is the winner
 
+def calc_score(rules, probs, p_rules, u_lhs, ntags, nwords):
+    score = 0
+    for r in p_rules:
+        temp = parsepcfg.get_Laplace_prob(r, probs, u_lhs, ntags, nwords)
+        #print('rule: ' + str(r) + '\tscore: ' + str(temp))
+        score = score + temp
+    return score
+
 pcfg_file_path = '../pcfg/pcfg.txt'
 all_rules = False
 sentence = 'her eyes were red and puffy from many tears .'
@@ -43,5 +51,7 @@ def run_switcher(s):
     print('Getting rules used in parse.', flush=True)
     ptree = [tree.Tree.from_str(parse[0])]
     rules_p, u_lhs_p, u_tags_p, words_p = trainpcfg.count_all_rules(ptree)
+    score = calc_score(rules, probs, rules_p, u_lhs, ntags, nwords)
+    print('score: ' + str(score))
     
 run_switcher(sentence)
