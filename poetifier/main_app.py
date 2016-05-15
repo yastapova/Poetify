@@ -6,6 +6,7 @@ Created on May 14, 2016
 import sys
 sys.path.append('..')
 from pcfg import parsepcfg, trainpcfg, runner, tree
+from math import log,exp
 
 # input a single sentence
 
@@ -29,29 +30,33 @@ from pcfg import parsepcfg, trainpcfg, runner, tree
 # max score is the winner
 
 def calc_score(rules, probs, p_rules, u_lhs, ntags, nwords):
-    score = 0
+    ascore = 0
+    mscore = 0
     for r in p_rules:
         temp = parsepcfg.get_Laplace_prob(r, probs, u_lhs, ntags, nwords)
         #print('rule: ' + str(r) + '\tscore: ' + str(temp))
-        score = score + temp
-    return score
+        ascore = ascore + temp
+        mscore = mscore + log(temp)
+    return ascore, exp(mscore)
 
 pcfg_file_path = '../pcfg/pcfg.txt'
 all_rules = False
 sentence = 'her eyes were red and puffy from many tears .'
+sentence2 = 'One of the things I like most in life is food .'
+sentence3 = 'A lifetime filled with cheating hearts ,'
 
 def run_switcher(s):
     print('Reading pcfg file.', flush=True)
     u_lhs, tags, rules, probs, ntags, nwords = parsepcfg.parse_grammar(pcfg_file_path)
     print('Creating parse tree for input.', flush=True)
-    parsepcfg.create_trees(all_rules, sentence, u_lhs, tags, rules, probs, ntags, nwords)
+    parsepcfg.create_trees(all_rules, s, u_lhs, tags, rules, probs, ntags, nwords)
     print('Created parse.trees file.', flush=True)
     parse = runner.read_file('parse.trees')
     parse = parse.strip().split('\n')
     print('Getting rules used in parse.', flush=True)
     ptree = [tree.Tree.from_str(parse[0])]
     rules_p, u_lhs_p, u_tags_p, words_p = trainpcfg.count_all_rules(ptree)
-    score = calc_score(rules, probs, rules_p, u_lhs, ntags, nwords)
-    print('score: ' + str(score))
+    ascore, mscore = calc_score(rules, probs, rules_p, u_lhs, ntags, nwords)
+    print('scores:\t' + str(ascore/len(rules_p)) + '\t' + str(mscore/len(rules_p)))
     
-run_switcher(sentence)
+#run_switcher(sentence)

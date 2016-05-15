@@ -102,9 +102,9 @@ def buildTree(all_rules, scores, backs, tags, sent):
     last = scores[0][last-1]
     top = tags.index('TOP')
     bp = backs[0][len(backs)-1]
-    print(bp)
+    #print(bp)
     bp = max(x for x in bp if x is not None)
-    print(bp)
+    #print(bp)
     
     if not all_rules:
         if bp == None:
