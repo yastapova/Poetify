@@ -198,12 +198,12 @@ def run_switcher(file):
     
     parse = runner.read_file(file)
     parse = parse.strip().split('\n')
-    print(len(parse))
+    #print(len(parse))
     
     if(len(parse) > 1):
         testing_mode = True
         ptrees = [tree.Tree.from_str(x) for x in parse]
-        print(ptrees)
+        #print(ptrees)
         scores = []
         for p in ptrees:
             rules_p, _, _, _ = trainpcfg.count_all_rules([p])
