@@ -31,6 +31,15 @@ class Node(object):
             #s = s.replace("(", "-LRB-")
             #s = s.replace(")", "-RRB-")
             return s
+        
+    def _subtree_str2(self):
+        if len(self.children) != 0:
+            return "%s" % (" ".join(child._subtree_str2() for child in self.children))
+        else:
+            s = '%s' % self.label
+            #s = s.replace("(", "-LRB-")
+            #s = s.replace(")", "-RRB-")
+            return s
 
     def insert_child(self, i, child):
         if child.parent is not None:
@@ -86,6 +95,9 @@ class Tree(object):
 
     def __str__(self):
         return self.root._subtree_str()
+    
+    def __str2__(self):
+        return self.root._subtree_str2()
 
     interior_node = re.compile(r"\s*([^\s(]*)\(")
     close_brace = re.compile(r"\s*\)")
