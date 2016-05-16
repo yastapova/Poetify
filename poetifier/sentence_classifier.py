@@ -61,19 +61,25 @@ def classify_input(s, input_scores, testing_mode):
     #scores = [list(x) for x in zip(*scores)]
     
     # create k-nearest neighbors classifier for 5 neighbors
-    neigh = KNeighborsClassifier(n_neighbors=25)
+    neigh = KNeighborsClassifier(n_neighbors=5)
     neigh.fit(scores, classes) # train classifier
     pred = neigh.predict(input_scores) # predict classes of the test inputs
     probs = neigh.predict_proba(input_scores) # get probabilities of inputs being in each class
     if(not testing_mode):
         # get max prob for poem - prob[x][1]
         probs = [list(x) for x in zip(*probs)]
+        print(probs)
+        print(s)
         prob = max(probs[1])
+        print(prob)
         probindex = probs[1].index(prob)
+        print(probindex)
         # get the pred corresponding to the index of max
         pred = int(pred[probindex])
-        probs = [probs[0][pred], probs[1][pred]]
+        print(pred)
+        probs = [probs[0][probindex], probs[1][probindex]]
         input_scores = input_scores[probindex]
+        print(input_scores)
         print('Poetified: ' + tree.Tree.from_str(s[probindex]).__str2__())
         print('Predict: ' + str(pred))
         print('Probabilities: prose: ' + str(probs[0]) + '\tpoem: ' + str(probs[1]))

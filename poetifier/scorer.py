@@ -184,7 +184,7 @@ def perm_scores(perms, rules, probs, u_lhs, ntags, nwords):
         rules_p, _, _, _ = trainpcfg.count_all_rules([tree.Tree.from_str(p)])
         #print(p)
         ascore, mscore = calc_score(rules, probs, rules_p, u_lhs, ntags, nwords)
-        scores.append([ascore/len(rules_p), mscore/len(rules_p)])
+        scores.append([ascore, mscore])
     return scores
 
 def run_switcher(file):
@@ -208,9 +208,9 @@ def run_switcher(file):
         for p in ptrees:
             rules_p, _, _, _ = trainpcfg.count_all_rules([p])
             a, m = calc_score(rules, probs, rules_p, u_lhs, ntags, nwords)
-            scores.append([a/len(rules_p), m/len(rules_p)])
+            scores.append([a, m])
             rules_p = []
-        print(scores)
+        #print(scores)
         perms = ptrees
 
     print('Getting rules used in parse.', flush=True)
@@ -218,7 +218,7 @@ def run_switcher(file):
         ptree = tree.Tree.from_str(parse[0])
         perms = swapper(ptree)
         scores = perm_scores(perms, rules, probs, u_lhs, ntags, nwords)
-        print(scores)
+        #print(scores)
     
     from poetifier import sentence_classifier
     sentence_classifier.classify_input(perms, scores, testing_mode)
