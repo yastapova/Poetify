@@ -42,13 +42,13 @@ def calc_score(rules, probs, p_rules, u_lhs, ntags, nwords):
 pcfg_file_path = '../pcfg/pcfg.txt'
 all_rules = False
 
-def run_switcher(s):
+def run_switcher(s, file):
     print('Reading pcfg file.', flush=True)
     u_lhs, tags, rules, probs, ntags, nwords = parsepcfg.parse_grammar(pcfg_file_path)
     print('Creating parse tree for input.', flush=True)
     #parsepcfg.create_trees(all_rules, s, u_lhs, tags, rules, probs, ntags, nwords)
-    print('Created parse.trees file.', flush=True)
-    parse = runner.read_file('parse.trees')
+    print('Created ' + file + ' file.', flush=True)
+    parse = runner.read_file(file)
     parse = parse.strip().split('\n')
     print('Getting rules used in parse.', flush=True)
     ptree = [tree.Tree.from_str(parse[0])]

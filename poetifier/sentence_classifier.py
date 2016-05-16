@@ -40,8 +40,8 @@ def plot_data(poems, prose, input_scores):
     plt.show()
 
 def classify_input(s, input_scores):
-    scores1, classes1 = scores_for_data('../data/test_poems.trees', 1)
-    scores2, classes2 = scores_for_data('../data/test_prose.trees', 0)
+    scores1, classes1 = scores_for_data('../data/poems_classifier.trees', 1)
+    scores2, classes2 = scores_for_data('../data/prose_classifier.trees', 0)
     scores = scores1 + scores2
     classes = classes1 + classes2
     scores1 = [list(x) for x in zip(*scores1)]

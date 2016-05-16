@@ -10,4 +10,4 @@ sentence2 = 'One of the things I like most in life is food .'
 sentence3 = 'A lifetime filled with cheating hearts ,'
 
 if __name__ == '__main__':
-    run_switcher(sentence1)
+    run_switcher(sentence3, 'parse3.trees')
