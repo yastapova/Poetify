@@ -1,1 +1,1 @@
-TOP(S_UCP*(NP(NP*(DT(A) NN(lifetime)) NN(filled)) PP(IN(with) NP(JJ(cheating) NN(hearts)))) ADJP_JJ(,))
+TOP(S(S*(NP(DT(A) NN(lifetime)) VP(VBD(filled) PP(IN(with) NP(VBG(cheating) NNS(hearts))))) ,(,)))

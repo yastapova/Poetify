@@ -77,7 +77,8 @@ def classify_input(s, input_scores, testing_mode):
         print('Poetified: ' + tree.Tree.from_str(s[probindex]).__str2__())
         print('Predict: ' + str(pred))
         print('Probabilities: prose: ' + str(probs[0]) + '\tpoem: ' + str(probs[1]))
-    input_scores = [list(x) for x in zip(*input_scores)]
-    print(input_scores[0][0])
-    print(input_scores[1][0])
+    else:
+        input_scores = [list(x) for x in zip(*input_scores)]
+        #print(input_scores[0][0])
+        #print(input_scores[1][0])
     plot_data(scores1, scores2, input_scores) # plot data

@@ -10,5 +10,5 @@ sentence2 = 'One of the things I like most in life is food .'
 sentence3 = 'A lifetime filled with cheating hearts ,'
 
 if __name__ == '__main__':
-    #run_switcher('parse2.trees')
-    run_switcher('../data/class_test.trees')
+    run_switcher('parse1.trees')
+    #run_switcher('../data/class_test.trees')

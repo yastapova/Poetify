@@ -98,7 +98,7 @@ def mega_swap(t):
                     progress = i*16384 + j*4096 + k*256 + l
                     total = 2*4*16*256
                     if((progress/total*100)%10 == 0):
-                        print('[Progress] ' + progress/total*100 + '%')
+                        print('[Progress] ' + str(progress/total*100) + '%')
                     sl = format(l, '08b')
                     try:
                         if sl[0] == '1':
@@ -218,6 +218,7 @@ def run_switcher(file):
         ptree = tree.Tree.from_str(parse[0])
         perms = swapper(ptree)
         scores = perm_scores(perms, rules, probs, u_lhs, ntags, nwords)
+        print(scores)
     
     from poetifier import sentence_classifier
     sentence_classifier.classify_input(perms, scores, testing_mode)
