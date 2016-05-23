@@ -70,18 +70,14 @@ def classify_input(s, input_scores, testing_mode):
     if(not testing_mode):
         # get max prob for poem - prob[x][1]
         probs = [list(x) for x in zip(*probs)]
-        #print(probs)
-        #print(s)
         prob = max(probs[1])
-        #print(prob)
         probindex = probs[1].index(prob)
-        #print(probindex)
+        
         # get the pred corresponding to the index of max
         pred = int(pred[probindex])
-        #print(pred)
         probs = [probs[0][probindex], probs[1][probindex]]
         input_scores = input_scores[probindex]
-        #print(input_scores)
+        
         print('Poetified: ' + tree.Tree.from_str(s[probindex]).__str2__())
         print('Predict: ' + str(pred))
         print('Probabilities: prose: ' + str(probs[0]) + '\tpoem: ' + str(probs[1]))

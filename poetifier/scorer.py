@@ -30,6 +30,8 @@ import numpy as np
     
 # max score is the winner
 
+# calculates the poetic scores based on the rules found in
+# the parse tree of the sentence
 def calc_score(rules, probs, p_rules, u_lhs, ntags, nwords):
     ascore = 0
     mscore = 0
@@ -43,7 +45,7 @@ def calc_score(rules, probs, p_rules, u_lhs, ntags, nwords):
 pcfg_file_path = '../pcfg/pcfg.txt'
 all_rules = False
 
-
+# switches two nodes in the tree
 def switcher(r):
     if r == None:
         return
@@ -52,7 +54,9 @@ def switcher(r):
     t = r.children[0]
     r.children[0] = r.children[1]
     r.children[1] = t
-    
+
+# swaps subtrees in the parse tree of an input sentence
+# to produce permutations of the sentence
 def mega_swap(t):
     perms = []
     r = t.root
@@ -171,12 +175,14 @@ def mega_swap(t):
             None
     return perms
 
+# runs the swapper
 def swapper(testtrees):
     print('Beginning permutation swapping.',flush=True)
     perms = mega_swap(testtrees)
     #print(perms)
     return perms
 
+# calculates the scores of all of the permutations
 def perm_scores(perms, rules, probs, u_lhs, ntags, nwords):
     print('Calculating permutation scores.',flush=True)
     scores = []
@@ -187,6 +193,7 @@ def perm_scores(perms, rules, probs, u_lhs, ntags, nwords):
         scores.append([ascore, mscore])
     return scores
 
+# runs the application on the input sentence
 def run_switcher(file):
     testing_mode = False
     print('Reading pcfg file.', flush=True)
