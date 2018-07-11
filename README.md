@@ -1,6 +1,6 @@
 # Poetify
 
-Poetifier is a poetry translator that I created as the final project for my CSE 390: Natural Language Processing class. The "translation" means that it is given an input sentence of prose and then "translates" it to a version that is more poetic than the original. This project was written in Python 3.5 and uses Dependency Parsing and a K-Nearest Neighbors classifier.
+Poetify is a poetry translator that I created as the final project for my CSE 390: Natural Language Processing class. The "translation" means that it is given an input sentence of prose and then "translates" it to a version that is more poetic than the original. This project was written in Python 3.5 and uses Dependency Parsing and a K-Nearest Neighbors classifier.
 
 I used the [University of Oxford Text Archive](https://ota.ox.ac.uk/) to find prose test data and the [Stanford Lexicalized Parser](http://nlp.stanford.edu/software/lex-parser.shtml) to create parse trees for my test and training data.
 
@@ -27,14 +27,14 @@ I used the [University of Oxford Text Archive](https://ota.ox.ac.uk/) to find pr
 
 ## Packages
 
-###1. converter
+### 1. converter
  * used to convert from Stanford Parser's format to the one used by the other packages  
 
-###2. pcfg
+### 2. pcfg
  * used to train a PCFG  
  * counts rules used in a parse tree  
 
-###3. poetifier  
+### 3. poetifier  
  * creates permutations of the input sentence  
  * calculates the poetic score  
  * creates and trains the KNN classifier  
